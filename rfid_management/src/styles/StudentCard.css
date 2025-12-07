@@ -1,0 +1,135 @@
+.student-card {
+  padding: 12px;
+  margin: 10px 0;
+  background: #ffffff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap; 
+  box-sizing: border-box;
+}
+
+.info h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.info p {
+  margin: 2px 0;
+  font-size: 14px;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.actions button {
+  padding: 6px 12px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.edit-btn {
+  background: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+}
+
+.delete-btn {
+  background: #e74c3c;
+  color: white;
+  border: none;
+  border-radius: 4px;
+}
+
+
+.attendance-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  padding: 12px;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+}
+
+
+.small-btn {
+  width: 34px;
+  height: 34px;
+  border-radius: 6px;
+  border: none;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+.small-btn.present {
+  background: #2ecc71;
+  color: white;
+}
+
+.small-btn.absent {
+  background: #e74c3c;
+  color: white;
+}
+
+
+@media (max-width: 768px) {
+  .student-card,
+  .attendance-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .actions {
+    margin-top: 10px;
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .small-btn {
+    width: 30px;
+    height: 30px;
+    font-size: 13px;
+  }
+
+  .info h3 {
+    font-size: 16px;
+  }
+
+  .info p {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .student-card,
+  .attendance-card {
+    padding: 10px;
+  }
+
+  .actions button {
+    padding: 5px 10px;
+    font-size: 12px;
+  }
+
+  .small-btn {
+    width: 28px;
+    height: 28px;
+    font-size: 12px;
+  }
+
+  .info h3 {
+    font-size: 15px;
+  }
+
+  .info p {
+    font-size: 12px;
+  }
+}
