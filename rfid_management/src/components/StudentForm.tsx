@@ -1,6 +1,6 @@
 import "../styles/Form.css";
 import type { Student } from "../types/student.types";
-import React from "react";
+import React, { useState } from "react";
 
 interface Props {
   formData: Student;
@@ -9,12 +9,32 @@ interface Props {
 }
 
 function StudentForm({ formData, onChange, onSubmit }: Props) {
+   const [instruction] = useState({
+age: "Age: ≤ 100",
+  contact: "Contact : Numbers only",
+  roll: "Roll No: Numbers, max 10 digits",
+  grade: "Grade: 1–12",
+  section: "Section: A–Z only",
+  firstName: "First Name",
+  lastName: "Last Name",
+  address: "Address",
+  });
   return (
     <form className="form" onSubmit={onSubmit}>
       <h2 className="form-title">Student Details</h2>
 
       {Object.keys(formData).map((key) => (
         key !== "_id" && (
+          <>
+            <br />
+           <span
+            style={{
+             fontSize: "12px",
+             color: "#777", 
+             display: "block",
+             marginBottom: "4px",
+  }} 
+           > {instruction[key as keyof typeof instruction]}</span>
           <input
             key={key}
             type="text"
@@ -24,6 +44,7 @@ function StudentForm({ formData, onChange, onSubmit }: Props) {
             onChange={onChange}
             className="form-input"
           />
+          </>
         )
       ))}
 
