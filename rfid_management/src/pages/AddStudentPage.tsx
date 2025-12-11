@@ -6,7 +6,7 @@ import StudentForm from "../components/StudentForm";
 import { useNavigate } from "react-router-dom";
 import React from "react";
 
-function AddStudentPage({ formData, onChange, onSubmit }: any) {
+function AddStudentPage({ formData, onChange }: any) {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
