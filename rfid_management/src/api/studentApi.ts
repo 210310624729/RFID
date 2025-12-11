@@ -1,6 +1,6 @@
 import type { Student } from "../types/student.types";
 
-const BASE_URL = "http://localhost:2000/api/users";
+const BASE_URL = "https://rfid-opvk.onrender.com/api/users";
 
 export const fetchStudents = async (page = 1, limit = 10, search = "") => {
   const res = await fetch(
@@ -38,3 +38,4 @@ export const deleteStudent = async (id: string) => {
   const res = await fetch(`${BASE_URL}/${id}`, { method: "DELETE" });
   return res.json();
 };
+
