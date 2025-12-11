@@ -12,7 +12,7 @@ function StudentForm({ formData, onChange, onSubmit }: Props) {
    const [instruction] = useState({
 age: "Age: ≤ 100",
   contact: "Contact : Numbers only",
-  roll: "Roll No: Numbers, max 10 digits",
+  roll: "Roll No: Numbers only",
   grade: "Grade: 1–12",
   section: "Section: A–Z only",
   firstName: "First Name",
@@ -24,7 +24,7 @@ age: "Age: ≤ 100",
       <h2 className="form-title">Student Details</h2>
 
       {Object.keys(formData).map((key) => (
-        key !== "_id" && (
+        (key !== "_id" && key !== "__v") && (
           <>
             <br />
            <span
@@ -39,7 +39,7 @@ age: "Age: ≤ 100",
             key={key}
             type="text"
             name={key}
-            placeholder={key.replace(/([A-Z])/g, " $1")}
+            placeholder={key.replace(/([A-Z])/g, " $1").trim().replace(/^./, str => str.toUpperCase())}
             value={(formData as any)[key]||""}
             onChange={onChange}
             className="form-input"
