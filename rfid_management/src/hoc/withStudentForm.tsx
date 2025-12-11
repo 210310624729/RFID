@@ -2,17 +2,11 @@ import { useState } from "react";
 import type { Student } from "../types/student.types";
 import React from "react";
 
-interface Props {
-  initialData?: Student;
-  onSubmit: (formData: Student) => void;
-}
-
-function withStudentForm<T extends Props>(WrappedComponent: React.ComponentType<T>) {
-  return function FormWrapper(props: T) {
-    const [errors, setErrors] = useState<any>({});
-
+function withStudentForm(WrappedComponent: React.ComponentType<any>) {
+  return function FormWrapper() {
+   
     const [formData, setFormData] = useState<Student>(
-      props.initialData || {
+       {
         firstName: "",
         lastName: "",
         age: "",
@@ -23,7 +17,6 @@ function withStudentForm<T extends Props>(WrappedComponent: React.ComponentType<
         section: "",
       }
     );
-
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 
        const { name, value } = e.target;
@@ -58,19 +51,11 @@ function withStudentForm<T extends Props>(WrappedComponent: React.ComponentType<
   }
 }
 
-
-    const handleSubmit = (e: React.FormEvent) => {
-      e.preventDefault();
-      props.onSubmit(formData);
-    };
-
     return (
       <WrappedComponent
-        {...props}
         formData={formData}
         setFormData={setFormData}  
         onChange={handleChange}
-        onSubmit={handleSubmit}
       />
     );
   };
