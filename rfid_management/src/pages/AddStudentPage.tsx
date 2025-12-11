@@ -1,37 +1,51 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import type { QueryKey } from '@tanstack/react-query'
-import { createStudent } from "../api/studentApi";
+import React, { useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { fetchStudentById, updateStudent } from "../api/studentApi";
 import withStudentForm from "../hoc/withStudentForm";
 import StudentForm from "../components/StudentForm";
-import { useNavigate } from "react-router-dom";
-import React from "react";
+import type { Student } from "../types/student.types";
 
-function AddStudentPage({ formData, onChange }: any) {
+function EditStudentPage({ formData, setFormData, onChange }: any) {
+  const { id } = useParams();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
+  const { data, isLoading } = useQuery({
+    queryKey: ["student", id],
+    queryFn: () => fetchStudentById(id!),
+    enabled: !!id,
+  });
+
+useEffect(() => {
+  if (data) {
+    setFormData((prev: Student) => ({ ...prev, ...data })); 
+  }
+}, [data]);
+
   const mutation = useMutation({
-    mutationFn: createStudent,
+    mutationFn: (updated: any) => updateStudent(id!, updated),
     onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["students"] as QueryKey,
-      }),
-      navigate("/");
-    },
-    onError:(err)=>{
-      console.log(err)
+      queryClient.invalidateQueries({queryKey:["students"]}),
+      navigate("/")
     }
   });
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
   e.preventDefault();
   mutation.mutate(formData);
 };
 
 
+  if (isLoading) return <h2>Loading...</h2>;
+
   return (
-    <StudentForm formData={formData} onChange={onChange} onSubmit={handleFormSubmit} />
+    <StudentForm
+      formData={formData}
+      onChange={onChange}
+      onSubmit={handleSubmit}
+    />
   );
 }
 
-export default withStudentForm(AddStudentPage);
+export default withStudentForm(EditStudentPage);
