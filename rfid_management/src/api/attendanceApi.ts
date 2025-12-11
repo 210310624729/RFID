@@ -1,7 +1,7 @@
 
 import type  { Student }  from "../types/student.types";
 
-const BASE = "http://localhost:2000/api/attendance";
+const BASE = "https://rfid-opvk.onrender.com/api/attendance";
 
 export type AttendanceRecord = {
   _id: string;
@@ -25,3 +25,4 @@ export async function markAttendanceById(id: string, status: "Present" | "Absent
   if (!res.ok) throw new Error("Failed to mark attendance");
   return res.json();
 }
+
